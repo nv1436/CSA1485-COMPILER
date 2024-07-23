@@ -1,0 +1,20 @@
+%{
+#include<stdio.h>
+
+int macro_count = 0;
+int header_count = 0;
+%}
+%%
+
+^#define { macro_count++; }
+^#include { header_count++; }
+
+.|/n
+
+%%
+int yywrap(){}
+int main(){
+yylex();
+printf("number of macros defined: %d/n", macro_counter);
+printf("number of header files included: %d/n", header_count);
+}
